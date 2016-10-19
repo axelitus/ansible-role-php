@@ -1,0 +1,15 @@
+--- # Ansible Role [PHP]: vars.main (Axel Pardemann <axelitus@GitHub>)
+php:
+  ver: 7.0
+  extensions:
+    - cli
+    - curl
+    - fpm
+    - gd
+    - json
+    - mbstring
+    - mcrypt
+    - mysql
+    - opcache
+    - xml
+    - zip

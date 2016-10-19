@@ -1,0 +1,9 @@
+--- # Ansible Role [PHP]: tasks.ubuntu.install_php_extensions (Axel Pardemann <axelitus@GitHub>)
+- name: Install PHP {{ php.ver }} extensions
+  apt:
+    name: "php{{ php.ver }}-{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ php.extensions }}"
+  when: php_installed_core|succeeded
+  register: php_installed_extensions

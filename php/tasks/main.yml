@@ -1,0 +1,8 @@
+--- # Ansible Role [PHP]: tasks.main (Axel Pardemann <axelitus@GitHub>)
+- name: Include OS specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include: "{{ ansible_distribution }}/install_php.yml"
+- include: "{{ ansible_distribution }}/install_php_extensions.yml"
+- include: "{{ ansible_distribution }}/copy_php_cli_config.yml"
+- include: "{{ ansible_distribution }}/copy_php_fpm_config.yml"

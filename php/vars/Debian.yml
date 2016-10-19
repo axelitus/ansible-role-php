@@ -1,0 +1,46 @@
+--- # Ansible Role [PHP]: vars.debian (Axel Pardemann <axelitus@GitHub>)
+phplog:
+  path: "/var/log/php"
+  owner: "root"
+  group: "root"
+phpcli:
+  ini:
+    template: "cli/php.ini.j2"
+    path: /etc/php/{{ php.ver }}/cli/php.ini
+    owner: "root"
+    group: "root"
+phpfpm:
+  conf:
+    template: "fpm/php-fpm.conf.j2"
+    path: "/etc/php/{{ php.ver }}/fpm/php-fpm.conf"
+    owner: "root"
+    group: "root"
+    entries:
+      pid: "/run/php/php{{ php.ver }}-fpm.pid"
+      error_log: "/var/log/php{{ php.ver }}-fpm.log"
+      emergency:
+        restart_threshold: 10
+        restart_interval: 1m
+  ini:
+    template: "fpm/php.ini.j2"
+    path: "/etc/php/{{ php.ver }}/fpm/php.ini"
+    owner: "root"
+    group: "root"
+  pool:
+    path: "/etc/php/{{ php.ver }}/fpm/pool.d"
+    files:
+      www:
+        owner: "root"
+        group: "root"
+        entries:
+          user: "ubuntu"
+          group: "ubuntu"
+          listen: "/run/php/php7.0-fpm.sock"
+          listen_allowed_clients: "127.0.0.1"
+          pm_max_children: 51
+          pm_start_servers: 3
+          pm_min_spare_servers: 2
+          pm_max_spare_servers: 4
+          pm_max_requests: 1000
+          slowlog: "{{ phplog.path }}/$pool.log.slow"
+          request_slowlog_timeout: 5s

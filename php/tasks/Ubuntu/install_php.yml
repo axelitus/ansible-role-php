@@ -1,0 +1,7 @@
+--- # Ansible Role [PHP]: tasks.ubuntu.install_php (Axel Pardemann <axelitus@GitHub>)
+- name: Install PHP {{ php.ver }}
+  apt:
+    name: php{{ php.ver }}
+    state: latest
+  when: ansible_distribution == 'Ubuntu'
+  register: php_installed_core

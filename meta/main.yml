@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: "Axel Pardemann"
+  company: "axelitusMX"
+  license: "MIT"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+  categories:
+    - web
+    - php
+  dependencies: []

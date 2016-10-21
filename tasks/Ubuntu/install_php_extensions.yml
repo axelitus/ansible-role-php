@@ -5,5 +5,5 @@
     state: latest
     update_cache: yes
   with_items: "{{ php.extensions }}"
-  when: php_installed_core|succeeded
-  register: php_installed_extensions
+  when: php_install|succeeded
+  register: php_install_extensions

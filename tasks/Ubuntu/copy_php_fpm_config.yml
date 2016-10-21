@@ -1,8 +1,8 @@
 --- # Ansible Role [PHP]: tasks.ubuntu.copy_php_fpm_config (Axel Pardemann <axelitus@GitHub>)
 - name: Check if PHP {{ php.ver }} FPM extension is installed
   command: dpkg-query -l php{{ php.ver }}-fpm
-  register: php_fpm_installed
-  failed_when: php_fpm_installed.rc > 1
+  register: php_fpm_exists
+  failed_when: php_fpm_exists.rc > 1
   changed_when: no
 
 - name: Ensure PHP {{ php.ver }} slow log directory
@@ -12,6 +12,7 @@
     group: "{{ phplog.group }}"
     state: directory
     mode: 0755
+  register: php_logdir_exists
 
 - name: Copy PHP {{ php.ver }} FPM conf file if FPM installed
   template:
@@ -19,8 +20,8 @@
     dest: "{{ phpfpm.conf.path }}"
     owner: "{{ phpfpm.conf.owner }}"
     group: "{{ phpfpm.conf.group }}"
-  when: php_fpm_installed|succeeded
-  register: php_fpm_conf_copied
+  when: php_fpm_exists|succeeded
+  register: php_fpm_copy_conf
 
 - name: Copy PHP {{ php.ver }} FPM ini file if FPM installed
   template:
@@ -28,8 +29,8 @@
     dest: "{{ phpfpm.ini.path }}"
     owner: "{{ phpfpm.ini.owner }}"
     group: "{{ phpfpm.ini.group }}"
-  when: php_fpm_installed|succeeded
-  register: php_fpm_ini_copied
+  when: php_fpm_exists|succeeded
+  register: php_fpm_copy_ini
 
 - name: Copy PHP {{ php.ver }} FPM pool conf files if FPM installed
   template:
@@ -38,7 +39,7 @@
     owner: "{{ item.value.owner }}"
     group: "{{ item.value.group }}"
   with_dict: "{{ phpfpm.pool.files }}"
-  when: php_fpm_installed|succeeded
-  register: php_fpm_pools_copied
+  when: php_fpm_exists|succeeded
+  register: php_fpm_copy_pools
   notify:
     - Restart PHP-FPM service

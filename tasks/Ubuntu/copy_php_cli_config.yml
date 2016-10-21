@@ -1,8 +1,8 @@
 --- # Ansible Role [PHP]: tasks.ubuntu.copy_php_cli_config (Axel Pardemann <axelitus@GitHub>)
 - name: Check if PHP {{ php.ver }} CLI extension is installed
   command: dpkg-query -l php{{ php.ver }}-cli
-  register: php_cli_installed
-  failed_when: php_cli_installed.rc > 1
+  register: php_cli_exists
+  failed_when: php_cli_exists.rc > 1
   changed_when: no
 
 - name: Copy PHP {{ php.ver }} CLI ini file if CLI installed
@@ -11,5 +11,5 @@
     dest: "{{ phpcli.ini.path }}"
     owner: "{{ phpcli.ini.owner }}"
     group: "{{ phpcli.ini.group }}"
-  when: php_cli_installed|succeeded
-  register: php_cli_ini_copied
+  when: php_cli_exists|succeeded
+  register: php_copy_cli_ini

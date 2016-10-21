@@ -4,4 +4,4 @@
     name: php{{ php.ver }}
     state: latest
   when: ansible_distribution == 'Ubuntu'
-  register: php_installed_core
+  register: php_install

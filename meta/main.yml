@@ -7,7 +7,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
-  categories:
+  galaxy_tags:
     - web
     - php
   dependencies: []

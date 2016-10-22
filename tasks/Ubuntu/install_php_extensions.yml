@@ -8,14 +8,12 @@
   when: php_install|succeeded
   register: php_install_extensions
 
-- name: Disable Xdebug extensions for CLI
-  file:
-    path: "/etc/php/7.0/cli/conf.d/20-xdebug.ini"
-    state: absent
-  when: php_install_extensions|succeeded
-
-- name: Disable Xdebug extensions for CLI
-  file:
-    path: "/etc/php/7.0/fpm/conf.d/20-xdebug.ini"
-    state: absent
+- name: Enable Xdebug remote debugging
+  lineinfile:
+    dest: "/etc/php/{{ php.ver }}/mods-available/xdebug.ini"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^xdebug.remote_enable', line: "xdebug.remote_enable=on" }
+    - { regexp: '^xdebug.remote_connect_back', line: "xdebug.remote_connect_back=on" }
   when: php_install_extensions|succeeded

@@ -2,14 +2,15 @@
 php:
   ver: 7.0
   extensions:
-    - cli
-    - curl
-    - fpm
-    - gd
-    - json
-    - mbstring
-    - mcrypt
-    - mysql
-    - opcache
-    - xml
-    - zip
+    - php{{ php.ver }}-cli
+    - php7.0-curl
+    - php7.0-fpm
+    - php7.0-gd
+    - php7.0-json
+    - php7.0-mbstring
+    - php7.0-mcrypt
+    - php7.0-mysql
+    - php7.0-opcache
+    - php-xdebug
+    - php7.0-xml
+    - php7.0-zip

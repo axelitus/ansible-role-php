@@ -1,9 +1,21 @@
 --- # Ansible Role [PHP]: tasks.ubuntu.install_php_extensions (Axel Pardemann <axelitus@GitHub>)
-- name: Install PHP {{ php.ver }} extensions
+- name: Install PHP extensions
   apt:
-    name: "php{{ php.ver }}-{{ item }}"
+    name: "{{ item }}"
     state: latest
     update_cache: yes
   with_items: "{{ php.extensions }}"
   when: php_install|succeeded
   register: php_install_extensions
+
+- name: Disable Xdebug extensions for CLI
+  file:
+    path: "/etc/php/7.0/cli/conf.d/20-xdebug.ini"
+    state: absent
+  when: php_install_extensions|succeeded
+
+- name: Disable Xdebug extensions for CLI
+  file:
+    path: "/etc/php/7.0/fpm/conf.d/20-xdebug.ini"
+    state: absent
+  when: php_install_extensions|succeeded

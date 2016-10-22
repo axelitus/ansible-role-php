@@ -4,13 +4,13 @@
     name: "{{ item }}"
     state: latest
     update_cache: yes
-  with_items: "{{ php.extensions }}"
+  with_items: "{{ axelitus_php_extensions }}"
   when: php_install|succeeded
   register: php_install_extensions
 
 - name: Enable Xdebug remote debugging
   lineinfile:
-    dest: "/etc/php/{{ php.ver }}/mods-available/xdebug.ini"
+    dest: "/etc/php/{{ axelitus_php_ver }}/mods-available/xdebug.ini"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:

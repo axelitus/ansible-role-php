@@ -14,14 +14,14 @@
 ; Pid file
 ; Note: the default prefix is /var
 ; Default Value: none
-pid = {{ phpfpm.conf.entries.pid }}
+pid = {{ axelitus_php_fpm_conf_values_pid }}
 
 ; Error log file
 ; If it's set to "syslog", log is sent to syslogd instead of being written
 ; in a local file.
 ; Note: the default prefix is /var
 ; Default Value: log/php-fpm.log
-error_log = {{ phpfpm.conf.entries.error_log }}
+error_log = {{ axelitus_php_fpm_conf_values_error_log }}
 
 ; syslog_facility is used to specify what type of program is logging the
 ; message. This lets syslogd specify that messages from different facilities
@@ -45,7 +45,7 @@ error_log = {{ phpfpm.conf.entries.error_log }}
 ; interval set by emergency_restart_interval then FPM will restart. A value
 ; of '0' means 'Off'.
 ; Default Value: 0
-emergency_restart_threshold = {{ phpfpm.conf.entries.emergency.restart_threshold }}
+emergency_restart_threshold = {{ axelitus_php_fpm_conf_values_emergency_restart_threshold }}
 
 ; Interval of time used by emergency_restart_interval to determine when
 ; a graceful restart will be initiated.  This can be useful to work around
@@ -53,7 +53,7 @@ emergency_restart_threshold = {{ phpfpm.conf.entries.emergency.restart_threshold
 ; Available Units: s(econds), m(inutes), h(ours), or d(ays)
 ; Default Unit: seconds
 ; Default Value: 0
-emergency_restart_interval = {{ phpfpm.conf.entries.emergency.restart_interval }}
+emergency_restart_interval = {{ axelitus_php_fpm_conf_values_emergency_restart_interval }}
 
 ; Time limit for child processes to wait for a reaction on signals from master.
 ; Available units: s(econds), m(inutes), h(ours), or d(ays)
@@ -122,4 +122,4 @@ emergency_restart_interval = {{ phpfpm.conf.entries.emergency.restart_interval }
 ; Relative path can also be used. They will be prefixed by:
 ;  - the global prefix if it's been set (-p argument)
 ;  - /usr otherwise
-include={{ phpfpm.pool.path }}/*.conf
+include={{ axelitus_php_fpm_pool_path }}/*.conf

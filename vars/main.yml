@@ -1,16 +1,15 @@
 --- # Ansible Role [PHP]: vars.main (Axel Pardemann <axelitus@GitHub>)
-php:
-  ver: 7.0
-  extensions:
-    - php7.0-cli
-    - php7.0-curl
-    - php7.0-fpm
-    - php7.0-gd
-    - php7.0-json
-    - php7.0-mbstring
-    - php7.0-mcrypt
-    - php7.0-mysql
-    - php7.0-opcache
-    - php-xdebug
-    - php7.0-xml
-    - php7.0-zip
+axelitus_php_ver: 7.0
+axelitus_php_extensions:
+  - php{{ axelitus_php_ver }}-cli
+  - php{{ axelitus_php_ver }}-curl
+  - php{{ axelitus_php_ver }}-fpm
+  - php{{ axelitus_php_ver }}-gd
+  - php{{ axelitus_php_ver }}-json
+  - php{{ axelitus_php_ver }}-mbstring
+  - php{{ axelitus_php_ver }}-mcrypt
+  - php{{ axelitus_php_ver }}-mysql
+  - php{{ axelitus_php_ver }}-opcache
+  - php-xdebug
+  - php{{ axelitus_php_ver }}-xml
+  - php{{ axelitus_php_ver }}-zip

@@ -1,44 +1,44 @@
 --- # Ansible Role [PHP]: tasks.ubuntu.copy_php_fpm_config (Axel Pardemann <axelitus@GitHub>)
-- name: Check if PHP {{ php.ver }} FPM extension is installed
-  command: dpkg-query -l php{{ php.ver }}-fpm
+- name: Check if PHP {{ axelitus_php_ver }} FPM extension is installed
+  command: dpkg-query -l php{{ axelitus_php_ver }}-fpm
   register: php_fpm_exists
   failed_when: php_fpm_exists.rc > 1
   changed_when: no
 
-- name: Ensure PHP {{ php.ver }} slow log directory
+- name: Ensure PHP {{ axelitus_php_ver }} slow log directory
   file:
-    path: "{{ phplog.path }}"
-    owner: "{{ phplog.owner }}"
-    group: "{{ phplog.group }}"
-    state: directory
+    path: "{{ axelitus_php_log_path }}"
+    owner: "root"
+    group: "root"
     mode: 0755
+    state: directory
   register: php_logdir_exists
 
-- name: Copy PHP {{ php.ver }} FPM conf file if FPM installed
+- name: Copy PHP {{ axelitus_php_ver }} FPM conf file if FPM installed
   template:
-    src: "{{ phpfpm.conf.template }}"
-    dest: "{{ phpfpm.conf.path }}"
-    owner: "{{ phpfpm.conf.owner }}"
-    group: "{{ phpfpm.conf.group }}"
+    src: "{{ axelitus_php_fpm_conf_template }}"
+    dest: "{{ axelitus_php_fpm_conf_path }}"
+    owner: "root"
+    group: "root"
   when: php_fpm_exists|succeeded
   register: php_fpm_copy_conf
 
-- name: Copy PHP {{ php.ver }} FPM ini file if FPM installed
+- name: Copy PHP {{ axelitus_php_ver }} FPM ini file if FPM installed
   template:
-    src: "{{ phpfpm.ini.template }}"
-    dest: "{{ phpfpm.ini.path }}"
-    owner: "{{ phpfpm.ini.owner }}"
-    group: "{{ phpfpm.ini.group }}"
+    src: "{{ axelitus_php_fpm_ini_template }}"
+    dest: "{{ axelitus_php_fpm_ini_path }}"
+    owner: "root"
+    group: "root"
   when: php_fpm_exists|succeeded
   register: php_fpm_copy_ini
 
-- name: Copy PHP {{ php.ver }} FPM pool conf files if FPM installed
+- name: Copy PHP {{ axelitus_php_ver }} FPM pool conf files if FPM installed
   template:
     src: "fpm/pools/{{ item.key }}.conf.j2"
-    dest: "{{ phpfpm.pool.path }}/{{ item.key }}.conf"
-    owner: "{{ item.value.owner }}"
-    group: "{{ item.value.group }}"
-  with_dict: "{{ phpfpm.pool.files }}"
+    dest: "{{ axelitus_php_fpm_pool_path }}/{{ item.key }}.conf"
+    owner: "root"
+    group: "root"
+  with_dict: "{{ axelitus_php_fpm_pool_files }}"
   when: php_fpm_exists|succeeded
   register: php_fpm_copy_pools
   notify:

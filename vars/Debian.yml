@@ -1,46 +1,30 @@
 --- # Ansible Role [PHP]: vars.debian (Axel Pardemann <axelitus@GitHub>)
-phplog:
-  path: "/var/log/php"
-  owner: "root"
-  group: "root"
-phpcli:
-  ini:
-    template: "cli/php.ini.j2"
-    path: /etc/php/{{ php.ver }}/cli/php.ini
-    owner: "root"
-    group: "root"
-phpfpm:
-  conf:
-    template: "fpm/php-fpm.conf.j2"
-    path: "/etc/php/{{ php.ver }}/fpm/php-fpm.conf"
-    owner: "root"
-    group: "root"
-    entries:
-      pid: "/run/php/php{{ php.ver }}-fpm.pid"
-      error_log: "/var/log/php{{ php.ver }}-fpm.log"
-      emergency:
-        restart_threshold: 10
-        restart_interval: 1m
-  ini:
-    template: "fpm/php.ini.j2"
-    path: "/etc/php/{{ php.ver }}/fpm/php.ini"
-    owner: "root"
-    group: "root"
-  pool:
-    path: "/etc/php/{{ php.ver }}/fpm/pool.d"
-    files:
-      www:
-        owner: "root"
-        group: "root"
-        entries:
-          user: "ubuntu"
-          group: "ubuntu"
-          listen: "/run/php/php7.0-fpm.sock"
-          listen_allowed_clients: "127.0.0.1"
-          pm_max_children: 51
-          pm_start_servers: 3
-          pm_min_spare_servers: 2
-          pm_max_spare_servers: 4
-          pm_max_requests: 1000
-          slowlog: "{{ phplog.path }}/$pool.log.slow"
-          request_slowlog_timeout: 5s
+axelitus_php_log_path: "/var/log/php"
+
+axelitus_php_cli_ini_template: "cli/php.ini.j2"
+axelitus_php_cli_ini_path: "/etc/php/{{ axelitus_php_ver }}/cli/php.ini"
+
+axelitus_php_fpm_conf_template: "fpm/php-fpm.conf.j2"
+axelitus_php_fpm_conf_path: "/etc/php/{{ axelitus_php_ver }}/fpm/php-fpm.conf"
+axelitus_php_fpm_conf_values_pid: "/run/php/php{{ axelitus_php_ver }}-fpm.pid"
+axelitus_php_fpm_conf_values_error_log: "/var/log/php{{ axelitus_php_ver }}-fpm.log"
+axelitus_php_fpm_conf_values_emergency_restart_threshold: 10
+axelitus_php_fpm_conf_values_emergency_restart_interval: "1m"
+
+axelitus_php_fpm_ini_template: "fpm/php.ini.j2"
+axelitus_php_fpm_ini_path: "/etc/php/{{ axelitus_php_ver }}/fpm/php.ini"
+
+axelitus_php_fpm_pool_path: "/etc/php/{{ axelitus_php_ver }}/fpm/pool.d"
+axelitus_php_fpm_pool_files:
+  www:
+    user: "ubuntu"
+    group: "ubuntu"
+    listen: "/run/php/php7.0-fpm.sock"
+    listen_allowed_clients: "127.0.0.1"
+    pm_max_children: 51
+    pm_start_servers: 3
+    pm_min_spare_servers: 2
+    pm_max_spare_servers: 4
+    pm_max_requests: 1000
+    slowlog: "{{ axelitus_php_log_path }}/$pool.log.slow"
+    request_slowlog_timeout: 5s

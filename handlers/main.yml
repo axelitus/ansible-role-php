@@ -1,3 +1,3 @@
 --- # Ansible Role [PHP]: handlers.main (Axel Pardemann <axelitus@GitHub>)
 - name: Restart PHP-FPM service
-  service: name=php{{ php.ver }}-fpm state=restarted
+  service: name=php{{ axelitus_php_ver }}-fpm state=restarted

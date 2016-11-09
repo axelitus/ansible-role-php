@@ -2,7 +2,9 @@
 galaxy_info:
   author: "Axel Pardemann"
   company: "axelitusMX"
+  description: "PHP"
   license: "MIT"
+  min_ansible_version: 2.1
   platforms:
     - name: Ubuntu
       versions:
